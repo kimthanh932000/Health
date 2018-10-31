@@ -42,7 +42,7 @@ public class CrawlerManagerServlet extends HttpServlet {
         public void run() {
             try {
                 TrungTamThuoc.Crawler();
-                NhaThuoc365.Crawler();
+//                NhaThuoc365.Crawler();
             } catch (IOException ex) {
                 Logger.getLogger(CrawlerManagerServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (XMLStreamException ex) {
