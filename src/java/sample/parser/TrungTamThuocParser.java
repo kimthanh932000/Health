@@ -95,9 +95,9 @@ public class TrungTamThuocParser{
         String url = "";
 
         while (iterator.hasNext()) {
-
+            
             event = iterator.next();
-
+            System.out.println(event);
             if (event.isStartElement()) {
                 StartElement se = event.asStartElement();
                 String seQName = se.getName().getLocalPart();

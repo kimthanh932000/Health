@@ -50,7 +50,13 @@ public class HTMLCrawler {
 //                    break;
                 }
                 if (isInside) {
+                    
+                    if(inputLine.contains("<h1 class=\"pagetitle\">")){
+                        inputLine = "";
+                    }
+                    
                     htmlSource = htmlSource + inputLine.trim() + "\n";
+                    
                 }
             }
         } finally {
@@ -98,7 +104,7 @@ public class HTMLCrawler {
         int count = 0;
         InputStream is = null;
         BufferedReader br = null;
-        
+
         try {
             URL url = new URL(uri);
             URLConnection con = url.openConnection();
@@ -134,6 +140,7 @@ public class HTMLCrawler {
             }
         }
     }
+
     public static String cleanHTMLContent(String content) {
         content = content.replace("<br />", "")
                 .replace("<br>", "")
@@ -150,7 +157,12 @@ public class HTMLCrawler {
                 .replace("g:plusone:size=\"medium\"", "")
                 .replace("<col style=\"text-align: justify;\" width=\"406\" >", "")
                 .replaceAll("(?m)^\\s", "");
+        
+        
+        
         content = "<root>" + "\n" + content + "</root>";
+        
+        
         return content;
     }
 }

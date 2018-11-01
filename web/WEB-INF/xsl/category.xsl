@@ -17,7 +17,7 @@
     <xsl:template match="ns2:Categories">
         <xsl:for-each select="ns1:Category">
             <li>
-                <a href="ProcessServlet?btnAction=Home&#38;categoryId='{@ID}'" class="hover">
+                <a href="ProcessServlet?btnAction=Home&#38;categoryId={@ID}" class="hover">
                     <xsl:value-of select="ns1:Name" />
                 </a>
             </li>

@@ -138,7 +138,7 @@ public class CategoryDAO implements Serializable {
         return categoryID;
     }
     
-    public static int getCategoryID()
+    public static int getFirstCategoryID()
             throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -147,9 +147,8 @@ public class CategoryDAO implements Serializable {
         try {
             con = DBUtils.makeConnection();
             if (con != null) {
-                String sql = "Select ID from Category where Name like ?";
+                String sql = "Select top 1 [ID] from Category";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, "%" + categoryName + "%");
                 ResultSet rs = stm.executeQuery();
                 if (rs.next()) {
                     categoryID = rs.getInt("ID");

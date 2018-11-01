@@ -73,7 +73,7 @@ public class TrungTamThuoc {
                     String uriPage = url + "?page=" + i;
 
                     //crawl product page
-                    HTMLCrawler.getHTMLSource(uriPage, beginSign, endSign);
+                    HTMLCrawler.getHTMLSource(uriPage, "<body>", "</body>");
 
                     //clean html source
                     cleanHTML = HTMLCrawler.cleanHTMLContent(HTMLCrawler.htmlSource);

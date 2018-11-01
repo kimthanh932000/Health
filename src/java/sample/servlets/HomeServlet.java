@@ -20,9 +20,7 @@ import javax.xml.bind.JAXBException;
 import sample.dao.CategoryDAO;
 import sample.dao.ProductDAO;
 import sample.jaxb.category.Categories;
-import sample.jaxb.category.Category;
 import sample.jaxb.product.ListProduct;
-import sample.jaxb.product.Product;
 import sample.utils.JaxBUtils;
 
 /**
@@ -49,9 +47,9 @@ public class HomeServlet extends HttpServlet {
         String url = home;
         try (PrintWriter out = response.getWriter()) {
 
-            ListProduct listProduct = new ListProduct();
-            listProduct.getProduct().addAll(ProductDAO.getAllProducts());
-            String xmlProduct = JaxBUtils.marshallXML(listProduct);
+//            ListProduct listProduct = new ListProduct();
+//            listProduct.getProduct().addAll(ProductDAO.getAllProducts());
+//            String xmlProduct = JaxBUtils.marshallXML(listProduct);
 //            System.out.println(xmlProduct);
 
             Categories listCategory = new Categories();
@@ -62,14 +60,16 @@ public class HomeServlet extends HttpServlet {
             String cateID = request.getParameter("categoryId");
             ListProduct productsByCate = new ListProduct();
             if (cateID == null) {
-                productsByCate.getProduct().addAll(ProductDAO.getProductsByCategory(Integer.parseInt(1)));
+                int categoryID = CategoryDAO.getFirstCategoryID();
+                productsByCate.getProduct().addAll(ProductDAO.getProductsByCategory(categoryID));
+            } else {
+                productsByCate.getProduct().addAll(ProductDAO.getProductsByCategory(Integer.parseInt(cateID)));
             }
-            productsByCate.getProduct().addAll(ProductDAO.getProductsByCategory(Integer.parseInt(cateID)));
             String xmlProductByCate = JaxBUtils.marshallXML(productsByCate);
 
             request.setAttribute("CATEGORIES", xmlCategory);
-            request.setAttribute("PRODUCTS", xmlProduct);
-            request.setAttribute("PRODUCTSBYCATEGORY", xmlProductByCate);
+            request.setAttribute("PRODUCTS", xmlProductByCate);
+//            request.setAttribute("PRODUCTSBYCATEGORY", xmlProductByCate);
 
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

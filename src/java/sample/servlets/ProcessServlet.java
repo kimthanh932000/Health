@@ -44,6 +44,8 @@ public class ProcessServlet extends HttpServlet {
             url = homeServlet;
         }else if (button.equals("Crawler")) {
             url = crawlerServlet;
+        }else if(button.equals("Home")){
+            url = homeServlet;
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(url);
