@@ -109,4 +109,60 @@ public class CategoryDAO implements Serializable {
         }
         return null;
     }
+    
+    public static int getCategoryByID(int ID)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        int categoryID = 0;
+
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select ID from Category where Name like ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1,ID);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    categoryID = rs.getInt("ID");
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return categoryID;
+    }
+    
+    public static int getCategoryID()
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        int categoryID = 0;
+
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select ID from Category where Name like ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, "%" + categoryName + "%");
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    categoryID = rs.getInt("ID");
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return categoryID;
+    }
 }

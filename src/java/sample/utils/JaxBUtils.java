@@ -37,5 +37,4 @@ public class JaxBUtils {
         String xmlString = sw.toString();
         return xmlString;
     }
-
 }

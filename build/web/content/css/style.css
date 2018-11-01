@@ -59,12 +59,15 @@ body {
     border: 1px solid #e4e4e4;
 
 }
-
+.product_img{
+    width: 255px;
+    height: 200px;
+}
 .product_item {
     width: 255px;
-    height: 319px;
+    height: 419px;
     text-align: center;
-    margin-right: 6px;
+    margin-right: 20px;
     margin-left: 5px;
     margin-top: 10px;
     margin-bottom: 10px;

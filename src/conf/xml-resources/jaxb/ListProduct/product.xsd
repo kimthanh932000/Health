@@ -24,5 +24,4 @@ and open the template in the editor.
             <xs:attribute name="CategoryID" type="xs:positiveInteger" use="required"/>
         </xs:complexType>
     </xs:element>
-    
 </xs:schema>

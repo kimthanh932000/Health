@@ -8,7 +8,6 @@
 
 package sample.jaxb.product;
 
-import sample.jaxb.product.*;
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -52,7 +51,7 @@ import javax.xml.bind.annotation.XmlType;
     "imageURL",
     "description"
 })
-@XmlRootElement(name = "Product" , namespace = "www.kimthanh.com/schema/product")
+@XmlRootElement(name = "Product")
 public class Product {
 
     @XmlElement(name = "Name", required = true)

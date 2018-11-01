@@ -10,15 +10,12 @@ import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.naming.NamingException;
 import javax.xml.stream.XMLStreamException;
 import sample.dao.CategoryDAO;
 import sample.dao.ProductDAO;
 import sample.jaxb.product.Product;
-import sample.jaxb.product.Products;
-import static sample.main.Main.count;
 import sample.parser.NhaThuoc365Parser;
 
 /**
@@ -36,9 +33,6 @@ public class NhaThuoc365 {
         ArrayList<String> listURL = new ArrayList<>();
         listURL.add(urlThucPhamChucNang);
         listURL.add(urlTinhDau);
-
-        //list of all product from 2 urls
-        Products listAllProducts = new Products();
 
         for (String url : listURL) {
             System.out.println("Crawling from " + url);
@@ -106,6 +100,7 @@ public class NhaThuoc365 {
 
                         //save list of products to DB
                         if (listProductPerPage.size() > 0) {
+                            int count = 0;
                             count += ProductDAO.addNewProduct(listProductPerPage);
                             System.out.println("Saved " + count + " products to DB");
                         }

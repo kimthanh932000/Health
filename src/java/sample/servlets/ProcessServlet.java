@@ -18,10 +18,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author Administrator
  */
 public class ProcessServlet extends HttpServlet {
+
     private final String crawlerPage = "crawler.jsp";
     private final String homePage = "index.jsp";
     private final String crawlerServlet = "CrawlerManagerServlet";
     private final String homeServlet = "HomeServlet";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,18 +38,17 @@ public class ProcessServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String url = homeServlet;
-        try {
-            String button = request.getParameter("btnAction");
-            if(button.equals("Crawler")){
-                url = crawlerServlet;
-            }else if(button == null){
-                url = homeServlet;
-            }
-        }finally{
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+        String url = "";
+        String button = request.getParameter("btnAction");
+        if (button == null) {
+            url = homeServlet;
+        }else if (button.equals("Crawler")) {
+            url = crawlerServlet;
         }
+
+        RequestDispatcher rd = request.getRequestDispatcher(url);
+        rd.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

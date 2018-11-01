@@ -8,7 +8,6 @@
 
 package sample.jaxb.product;
 
-import sample.jaxb.product.*;
 import javax.xml.bind.annotation.XmlRegistry;
 
 

@@ -18,8 +18,6 @@ import javax.xml.stream.XMLStreamException;
 import sample.dao.CategoryDAO;
 import sample.dao.ProductDAO;
 import sample.jaxb.product.Product;
-import sample.jaxb.product.Products;
-import static sample.main.Main.count;
 import sample.parser.TrungTamThuocParser;
 
 /**
@@ -39,9 +37,6 @@ public class TrungTamThuoc {
         ArrayList<String> listURL = new ArrayList<>();
         listURL.add(urlMyPham);
         listURL.add(urlHuongLieu);
-
-        //list of all product from 2 urls
-        Products listAllProducts = new Products();
 
         //loop through 2 urls 
         for (String url : listURL) {
@@ -113,6 +108,7 @@ public class TrungTamThuoc {
 //                        System.out.println("Finished crawling " + listProductPerPage.size() + " products from page " + i);
                         //save all products per page to DB
                         if (listProductPerPage.size() > 0) {
+                            int count = 0;
                             count += ProductDAO.addNewProduct(listProductPerPage);
                             System.out.println("Saved " + count + " products to DB");
                         }

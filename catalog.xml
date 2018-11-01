@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/F:/Health/web/WEB-INF/schema/categories.xsd" uri="src/conf/xml-resources/jaxb/category/categories.xsd"/>
+    <system systemId="file:/F:/Health/web/WEB-INF/schema/category.xsd" uri="src/conf/xml-resources/jaxb/category/category.xsd"/>
+    <system systemId="file:/F:/Health/web/WEB-INF/schema/products.xsd" uri="src/conf/xml-resources/jaxb/ListProduct/products.xsd"/>
+    <system systemId="file:/F:/Health/web/WEB-INF/schema/product.xsd" uri="src/conf/xml-resources/jaxb/ListProduct/product.xsd"/>
+</catalog>

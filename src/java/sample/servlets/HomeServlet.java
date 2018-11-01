@@ -8,7 +8,6 @@ package sample.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
@@ -22,6 +21,7 @@ import sample.dao.CategoryDAO;
 import sample.dao.ProductDAO;
 import sample.jaxb.category.Categories;
 import sample.jaxb.category.Category;
+import sample.jaxb.product.ListProduct;
 import sample.jaxb.product.Product;
 import sample.utils.JaxBUtils;
 
@@ -30,7 +30,9 @@ import sample.utils.JaxBUtils;
  * @author Administrator
  */
 public class HomeServlet extends HttpServlet {
+
     private final String home = "index.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,18 +45,32 @@ public class HomeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, NamingException, JAXBException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String url = home;
         try (PrintWriter out = response.getWriter()) {
-            Categories c = new Categories();
-            List<Category> listCateory = CategoryDAO.getAllCategories();
-//            c.getCategory().add((Category) listCateory);          
-//            String categoryXML = JaxBUtils.marshallXML(c.getCategory());
-//            request.setAttribute("CATEGORIES", categoryXML);
-//        }catch (JAXBException ex) {
-//            Logger.getLogger(HomeServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
+
+            ListProduct listProduct = new ListProduct();
+            listProduct.getProduct().addAll(ProductDAO.getAllProducts());
+            String xmlProduct = JaxBUtils.marshallXML(listProduct);
+//            System.out.println(xmlProduct);
+
+            Categories listCategory = new Categories();
+            listCategory.getCategory().addAll(CategoryDAO.getAllCategories());
+            String xmlCategory = JaxBUtils.marshallXML(listCategory);
+//            System.out.println(xmlCategory);
+
+            String cateID = request.getParameter("categoryId");
+            ListProduct productsByCate = new ListProduct();
+            if (cateID == null) {
+                productsByCate.getProduct().addAll(ProductDAO.getProductsByCategory(Integer.parseInt(1)));
+            }
+            productsByCate.getProduct().addAll(ProductDAO.getProductsByCategory(Integer.parseInt(cateID)));
+            String xmlProductByCate = JaxBUtils.marshallXML(productsByCate);
+
+            request.setAttribute("CATEGORIES", xmlCategory);
+            request.setAttribute("PRODUCTS", xmlProduct);
+            request.setAttribute("PRODUCTSBYCATEGORY", xmlProductByCate);
+
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

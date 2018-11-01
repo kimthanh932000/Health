@@ -7,19 +7,19 @@ and open the template in the editor.
 
 <xs:schema version="1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="www.kimthanh.com/schema/listProduct"
-           xmlns="www.kimthanh.com/schema/listProduct"
-           xmlns:product="www.kimthanh.com/schema/product"
+           targetNamespace="www.kimthanh.com/schema/categories"
+           xmlns="www.kimthanh.com/schema/categories"
+           xmlns:cate="www.kimthanh.com/schema/category"
            elementFormDefault="qualified">
-    
-    <xs:import namespace="www.kimthanh.com/schema/product" schemaLocation="product.xsd"/>
-    
-    <xs:element name="Products">
+
+    <xs:import namespace="www.kimthanh.com/schema/category" schemaLocation="category.xsd"/>
+        
+    <xs:element name="Categories"> 
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="product:Product" maxOccurs="unbounded" />
+                <xs:element ref="cate:Category" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>
+    </xs:element>   
     
 </xs:schema>
