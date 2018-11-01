@@ -27,7 +27,8 @@ import sample.crawler.TrungTamThuoc;
  */
 public class CrawlerManagerServlet extends HttpServlet {
 
-    private final String home = "";
+    private final String homePage = "index.jsp";
+    private final String crawlerPage = "crawler.jsp";
 
     public class Crawler implements Runnable {
 
@@ -35,14 +36,16 @@ public class CrawlerManagerServlet extends HttpServlet {
 
         public Crawler() {
             t = new Thread(this);
-//            t.start();
+            t.start();
         }
 
         @Override
         public void run() {
             try {
+
                 TrungTamThuoc.Crawler();
 //                NhaThuoc365.Crawler();
+
             } catch (IOException ex) {
                 Logger.getLogger(CrawlerManagerServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (XMLStreamException ex) {
@@ -70,25 +73,38 @@ public class CrawlerManagerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        String url = "";
-        try {
-
-            String button = request.getParameter("btnAction");
-            
-            Crawler crawler = new Crawler();
-            
-            if (button.equals("Start")) {
-                crawler.t.start();
-            }else if(button.equals("Stop")){
-                crawler.t.suspend();
-            }
-
-        } finally {
+        
+        try (PrintWriter out = response.getWriter();){         
+            String token = request.getParameter("token");
+            String toolAction = request.getParameter("toolAction");
+            String url = null;
+            if(token.equals("kimthanh_crawler")){
+                if(toolAction == null){
+                    url = crawlerPage;
+                }else if(toolAction.equals("Start")){
+                    Crawler tool = (Crawler) request.getServletContext().getAttribute("CRAWLER");
+//                    if(tool != null){
+//                        tool.t.suspend();
+//                    }
+                    Crawler crawler = new Crawler();
+                    request.getServletContext().setAttribute("CRAWLER", tool);
+                    request.setAttribute("IsStart", true);
+                    url = crawlerPage;
+                }else if(toolAction.equals("Stop")){
+                    Crawler tool = (Crawler) request.getServletContext().getAttribute("CRAWLER");
+                    if(tool != null){
+                        tool.t.suspend();
+                        request.getServletContext().setAttribute("CRAWLER", null);
+                        request.setAttribute("IsStart", false);
+                    }
+                    url = crawlerPage;
+                }
+            }else{
+                url = homePage;
+            }     
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

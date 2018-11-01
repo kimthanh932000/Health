@@ -6,7 +6,7 @@
 package sample.utils;
 
 import com.sun.xml.internal.stream.events.EndElementEvent;
-import com.sun.xml.internal.stream.events.*;
+import com.sun.xml.internal.stream.events.XMLEventAllocatorImpl;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -32,6 +32,7 @@ public class ParserUtils {
             XMLEvent event = null;
             try {
                 event = reader.nextEvent();
+                System.out.println(event);
                 if (event.isEndDocument()) {
                     break;
                 }
@@ -68,7 +69,6 @@ public class ParserUtils {
                 }
             }
         }
-
         return IEvents.iterator();
     }
 

@@ -6,11 +6,15 @@
 package sample.dao;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.naming.NamingException;
+import sample.jaxb.category.Category;
 import sample.utils.DBUtils;
 
 /**
@@ -71,5 +75,38 @@ public class CategoryDAO implements Serializable {
             }
         }
         return categoryID;
+    }
+    
+    public static List<Category> getAllCategories()
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        List<Category> list = new ArrayList<>();
+
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select * from Category";
+                stm = con.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    BigInteger id = BigInteger.valueOf(rs.getInt("ID"));
+                    String name = rs.getString("Name");
+                    Category category = new Category();
+                    category.setID(id);
+                    category.setName(name);
+                    list.add(category);
+                }
+                return list;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
     }
 }

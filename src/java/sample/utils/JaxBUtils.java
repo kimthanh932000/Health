@@ -6,7 +6,6 @@
 package sample.utils;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
@@ -27,4 +26,16 @@ public class JaxBUtils {
         mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         mar.marshal(entity, new File(xmlFilePath));
     }
+
+    public static <D> String marshallXML(D entity) throws JAXBException {
+        JAXBContext context = JAXBContext.newInstance(entity.getClass());
+        Marshaller mar = context.createMarshaller();
+        StringWriter sw = new StringWriter();
+        mar.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+        mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
+        mar.marshal(entity, sw);
+        String xmlString = sw.toString();
+        return xmlString;
+    }
+
 }

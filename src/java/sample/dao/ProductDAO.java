@@ -5,9 +5,12 @@
  */
 package sample.dao;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
 import sample.jaxb.product.Product;
@@ -58,5 +61,90 @@ public class ProductDAO {
             }
         }
         return count.length;
+    }
+    
+    public static List<Product> getAllProducts() throws SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        List<Product> list = new ArrayList<>();
+        
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select * from Product";
+                stm = con.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    BigInteger ID = BigInteger.valueOf(rs.getInt("ID"));
+                    String name = rs.getString("Name");
+                    String code = rs.getString("Code");
+                    int price = rs.getInt("Price");
+                    String imgURL = rs.getString("ImageURL");
+//                    String description = rs.getString("Description");
+                    BigInteger categoryID = BigInteger.valueOf(rs.getInt("CategoryID"));
+                    Product p = new Product();
+                    p.setProductID(ID);
+                    p.setName(name);
+                    p.setCode(code);
+                    p.setPrice(price);
+                    p.setImageURL(imgURL);
+//                    p.setDescription("description");
+                    p.setCategoryID(categoryID);
+                    list.add(p);
+                }
+                return list;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+    
+    public static List<Product> getProductsByCategory(int categoryID) throws SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        List<Product> list = new ArrayList<>();
+        
+        try {
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                String sql = "Select * from Product where CategoryID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, categoryID);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    BigInteger ID = BigInteger.valueOf(rs.getInt("ID"));
+                    String name = rs.getString("Name");
+                    String code = rs.getString("Code");
+                    int price = rs.getInt("Price");
+                    String imgURL = rs.getString("ImageURL");
+//                    String description = rs.getString("Description");
+                    BigInteger cateID = BigInteger.valueOf(rs.getInt("CategoryID"));
+                    Product p = new Product();
+                    p.setProductID(ID);
+                    p.setName(name);
+                    p.setCode(code);
+                    p.setPrice(price);
+                    p.setImageURL(imgURL);
+//                    p.setDescription("description");
+                    p.setCategoryID(cateID);
+                    list.add(p);
+                }
+                return list;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
     }
 }

@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,10 +21,11 @@
         <div id="top_nav">
             <div id="logo"><img src="./content/logo/logo.jpg"/></div>
             <ul class="nav">
-                <li><a href="#" class="hover">Mỹ phẩm</a></li>
-                <li><a href="#" class="hover">Hương liệu</a></li>
-                <li><a href="#" class="hover">Thực phẩm chức năng</a></li>
-                <li><a href="#" class="hover">Tinh dầu</a></li>
+                <c:set var="docXml" value="${requestScope.CATEGORIES}" />
+                <c:if test="${not empty docXml}">
+                    <c:import charEncoding="UTF-8" url="WEB-INF/xsl/category.xsl" var="listCateXSL" />
+                    <x:transform xml="${docXml}" xslt="${listCateXSL}" />
+                </c:if>
             </ul>
         </div>
 

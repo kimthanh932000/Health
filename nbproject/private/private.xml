@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/F:/Health/src/java/sample/utils/ParserUtils.java</file>
             <file>file:/F:/Health/src/java/sample/servlets/CrawlerManagerServlet.java</file>
-            <file>file:/F:/Health/web/index.jsp</file>
+            <file>file:/F:/Health/web/WEB-INF/web.xml</file>
             <file>file:/F:/Health/web/crawler.jsp</file>
+            <file>file:/F:/Health/src/java/sample/servlets/ProcessServlet.java</file>
+            <file>file:/F:/Health/src/java/sample/crawler/TrungTamThuoc.java</file>
         </group>
     </open-files>
 </project-private>

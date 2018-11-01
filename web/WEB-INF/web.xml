@@ -8,6 +8,14 @@
         <servlet-name>CrawlerManagerServlet</servlet-name>
         <servlet-class>sample.servlets.CrawlerManagerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcessServlet</servlet-name>
+        <servlet-class>sample.servlets.ProcessServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>sample.servlets.HomeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrawlerServlet</servlet-name>
         <url-pattern>/CrawlerServlet</url-pattern>
@@ -16,12 +24,20 @@
         <servlet-name>CrawlerManagerServlet</servlet-name>
         <url-pattern>/CrawlerManagerServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessServlet</servlet-name>
+        <url-pattern>/ProcessServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/HomeServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>ProcessServlet</welcome-file>
     </welcome-file-list>
 </web-app>

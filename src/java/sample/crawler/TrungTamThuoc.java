@@ -51,11 +51,16 @@ public class TrungTamThuoc {
 
             //clean html
             String cleanHTML = HTMLCrawler.cleanHTMLContent(HTMLCrawler.htmlSource);
-
+            
+            
             //get page count
             int pageCount = HTMLCrawler.pageCount;
             System.out.println("Page count " + pageCount);
 
+            //get html content contains category
+            HTMLCrawler.getHTMLSource(url, "class=\"product-breadcroumb\"", "class=\"titlenew\"");
+            cleanHTML = HTMLCrawler.cleanHTMLContent(HTMLCrawler.htmlSource);
+            
             String category = TrungTamThuocParser.getCategory(cleanHTML);
             System.out.println("Category: " + category);
 
@@ -116,6 +121,6 @@ public class TrungTamThuoc {
             }
         }
 //        System.out.println("Total products crawled: " + listAllProducts.getProduct().size());
-//        return listAllProducts.getProduct().size();
+//        return listAllProducts.getProduct();
     }
 }
